@@ -15,6 +15,20 @@ Product.init(
             autoIncrement: true,
             allowNull: false,
         },
+        productName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        price: {
+            type: DataTypes.FLOAT,
+            allowNull: false,
+        },
+        stock: { type: DataTypes.NUMBER, allowNull: false, defaultValue: 10 },
+        catergoryId: {
+            type: DataTypes.NUMBER,
+            allowNull: false,
+            references: { model: "category", key: "id" },
+        },
         // define columns
     },
     {
