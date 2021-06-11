@@ -1,0 +1,5 @@
+# all Products
+GET http://localhost:3001/api/products
+
+# tag routes
+GET http://localhost:3001/api/tags

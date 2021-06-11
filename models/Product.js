@@ -15,12 +15,9 @@ Product.init(
             autoIncrement: true,
             allowNull: false,
         },
-        productName: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
+
         price: {
-            type: DataTypes.FLOAT,
+            type: DataTypes.DECIMAL,
             allowNull: false,
         },
         stock: { type: DataTypes.NUMBER, allowNull: false, defaultValue: 10 },
@@ -29,7 +26,6 @@ Product.init(
             allowNull: false,
             references: { model: "category", key: "id" },
         },
-        // define columns
     },
     {
         sequelize,
