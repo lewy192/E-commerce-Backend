@@ -23,3 +23,8 @@ Content-Type: application/json
     "id":1,
     "tagName":"testTag"
 }
+
+###
+# get all categories
+
+GET http://localhost:3001/api/categories
