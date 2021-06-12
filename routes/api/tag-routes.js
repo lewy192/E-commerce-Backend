@@ -17,11 +17,11 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
     // find a single tag by its `id`
-    const { tagId } = req.params.id;
     try {
-        const tag = await Tag.findByPk({ where: { id: tagId } });
+        const tag = await Tag.findByPk(tagId);
         res.status(200).json(tag);
     } catch (err) {
+        console.log(err);
         res.status(500);
         res.send(err);
     }
@@ -41,10 +41,10 @@ router.post("/", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
     const { tagId } = req.params;
-    const { newTagId, newTagName } = req.body;
+    const { tagName: newTagName } = req.body;
     try {
         const newTag = await Tag.update(
-            { id: newTagId, tagName: newTagName },
+            { tagName: newTagName },
             { where: { id: tagId } }
         );
         res.json(newTag);

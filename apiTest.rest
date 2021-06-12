@@ -23,8 +23,42 @@ Content-Type: application/json
     "id":1,
     "tagName":"testTag"
 }
+###
+# update tag
+
+PUT http://localhost:3001/api/tags/1
+Content-Type: application/json
+
+{"tagName":"newTag"}
+
+
 
 ###
 # get all categories
 
 GET http://localhost:3001/api/categories
+
+###
+# get Category based on id
+GET http://localhost:3001/api/categories/3
+
+### 
+# create Catgory 
+
+POST http://localhost:3001/api/categories/
+Content-Type: application/json
+
+{
+    "categoryName":"computer parts"
+}
+
+### 
+# update Category
+
+PUT http://localhost:3001/api/categories/6
+Content-Type: application/json
+
+{
+    "categoryName":"GPU"
+}
+
