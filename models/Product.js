@@ -21,9 +21,8 @@ Product.init(
             allowNull: false,
         },
         stock: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 10 },
-        catergory_id: {
+        catergoryId: {
             type: DataTypes.INTEGER,
-            allowNull: false,
             references: { model: "category", key: "id" },
         },
     },
