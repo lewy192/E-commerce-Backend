@@ -62,3 +62,25 @@ Content-Type: application/json
     "categoryName":"GPU"
 }
 
+###
+#delete Category
+
+DELETE  http://localhost:3001/api/categories/6
+
+
+###
+
+# Product Routes 
+
+# Get all products
+
+GET http://localhost:3001/api/products
+
+### 
+
+# get product by id
+
+GET http://localhost:3001/api/products/1
+
+
+
