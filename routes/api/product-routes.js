@@ -57,9 +57,9 @@ router.post("/", async (req, res) => {
       tagIds: [1, 2, 3, 4]
     }
   */
-    const { product_name: productName, price, stock, tagIds } = req.body;
+    const { product_name, price, stock, tagIds } = req.body;
     try {
-        const product = await Product.create(req.body);
+        const product = await Product.create();
         // if there's product tags, we need to create pairings to bulk create in the ProductTag model
         if (tagIds.length) {
             const productTagIdArr = tagIds.map((tag_id) => {
@@ -120,8 +120,26 @@ router.put("/:id", (req, res) => {
         });
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", async (req, res) => {
     // delete one product by its `id` value
+    try {
+        const { id: productId } = req.params;
+        const deletedProduct = await Product.destroy({
+            where: { id: productId },
+        });
+        if (deletedProduct) {
+            res.status(200);
+            res.send(
+                `The following Prodcut has been deleted: \n ${deletedProduct}`
+            );
+        }
+        res.status(404);
+        res.send("You tried to delete an invalid product");
+    } catch (err) {
+        console.log(err);
+        res.status(500);
+        res.send("Whoops, somthing broke internally: status 500!");
+    }
 });
 
 module.exports = router;
