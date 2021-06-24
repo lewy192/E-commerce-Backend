@@ -8,13 +8,14 @@ router.get("/", async (req, res) => {
     // find all products
     // be sure to include its associated Category and Tag data
     try {
+        console.log("start");
         const allProducts = await Product.findAll({
-            attributes: { exclude: "categoryId" },
-            include: [
-                { model: Category, as: "category" },
-                { model: Tag, as: "product_tags", attributes: ["tag_name"] },
-            ],
+            include: [{ model: Category }, { model: Tag, through: ProductTag }],
         });
+        if (!allProducts) {
+            res.status(404);
+            res.send("There are no products");
+        }
         res.status(200).json(allProducts);
     } catch (err) {
         res.status(500);
@@ -57,9 +58,14 @@ router.post("/", async (req, res) => {
       tagIds: [1, 2, 3, 4]
     }
   */
-    const { product_name, price, stock, tagIds } = req.body;
+    const { productName, price, stock, tagIds, categoryId } = req.body;
     try {
-        const product = await Product.create();
+        const product = await Product.create({
+            productName,
+            price,
+            stock,
+            categoryId,
+        });
         // if there's product tags, we need to create pairings to bulk create in the ProductTag model
         if (tagIds.length) {
             const productTagIdArr = tagIds.map((tag_id) => {
@@ -79,6 +85,7 @@ router.post("/", async (req, res) => {
 });
 
 // update product
+// TODO Fix
 router.put("/:id", (req, res) => {
     // update product data
     Product.update(req.body, {
@@ -127,12 +134,12 @@ router.delete("/:id", async (req, res) => {
         const deletedProduct = await Product.destroy({
             where: { id: productId },
         });
-        if (deletedProduct) {
-            res.status(200);
-            res.json(deletedProduct);
+        if (!deletedProduct) {
+            res.status(404);
+            res.send("You tried to delete an invalid product");
         }
-        res.status(404);
-        res.send("You tried to delete an invalid product");
+        res.status(200);
+        res.json(deletedProduct);
     } catch (err) {
         console.log(err);
         res.status(500);

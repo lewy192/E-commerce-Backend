@@ -46,18 +46,16 @@ router.post("/", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
     try {
-        const { tagId } = req.params;
-        const { tagName: newTagName } = req.body;
-        const updatedTag = await Tag.update(
-            { tagName: newTagName },
-            { where: { id: tagId } }
-        );
-        if (!updateTag) {
-            res.status(404);
-            res.send("You have tried to update a Tag that doesn't exist");
-        }
+        const { id: tagId } = req.params;
+        const updatedTag = await Tag.update(req.body, { where: { id: tagId } });
+        console.log("hi" + updatedTag);
+        // if (!updateTag[0]) {
+        //     res.status(404);
+        //     res.send("You have tried to update a Tag that doesn't exist");
+        // }
+        console.log(" ere ");
         res.status(200);
-        res.json(newTag);
+        res.send(`tag with an id of ${tagId} has been updated`);
     } catch (err) {
         res.status(500);
     }
@@ -67,9 +65,9 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
     // delete on tag by its `id` value
     try {
-        const { tagId } = req.params;
+        const { id: tagId } = req.params;
         const deletedTag = await Tag.destroy({ where: { id: tagId } });
-        res.status(200).json(deletedTag);
+        res.status(200).send(`tag with an id of ${tagId} has been deleted`);
     } catch (err) {
         res.status(500).json(err);
     }

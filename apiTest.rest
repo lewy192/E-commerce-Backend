@@ -7,14 +7,15 @@ GET http://localhost:3001/api/products/1
 
 ###
 # Create New Product 
-POST http://localhost:3001/api/products
+POST http://localhost:3001/api/products/
 Content-Type: application/json
 
 {
     "productName":"trackies",
     "price":110,
     "stock":10,
-    "catergoryId":1
+    "catergoryId":1,
+    "tagIds":1
 }
 ###
 # Update existing product by id
@@ -22,7 +23,6 @@ PUT http://localhost:3001/api/products/2
 Content-Type: application/json
 
 {
-    "id":1,
     "productName":"Running Sneakers",
     "price":120,
     "stock":10,
@@ -32,7 +32,7 @@ Content-Type: application/json
 ###
 # Delete Product by id
 
-DELETE http://localhost:3001/api/product/2
+DELETE http://localhost:3001/api/products/2
 
 
 
