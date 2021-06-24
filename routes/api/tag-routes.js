@@ -6,9 +6,9 @@ const { Tag, Product, ProductTag } = require("../../models");
 router.get("/", async (req, res) => {
     // find all tags
     // be sure to include its associated Product data
+
     try {
         const allTags = await Tag.findAll({ include: { model: Product } });
-
         res.status(200).json(allTags);
     } catch (err) {
         console.log(err);
@@ -18,7 +18,8 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
     // find a single tag by its `id`
     try {
-        const tag = await Tag.findByPk(tagId);
+        const { id: tagId } = req.params;
+        const tag = await Tag.findByPk(tagId, { include: { model: Product } });
         res.status(200).json(tag);
     } catch (err) {
         console.log(err);
@@ -30,9 +31,13 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
     // create Ida new tag
-    const { tagId, tagName } = req.body;
+
     try {
-        const newTag = await Tag.create({ id: tagId, tagName: tagName });
+        const { tagName } = req.body;
+        const newTag = await Tag.create(
+            { tagName },
+            { include: { model: Product } }
+        );
         res.status(200).json(newTag);
     } catch (err) {
         res.status(500);
@@ -40,13 +45,18 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-    const { tagId } = req.params;
-    const { tagName: newTagName } = req.body;
     try {
-        const newTag = await Tag.update(
+        const { tagId } = req.params;
+        const { tagName: newTagName } = req.body;
+        const updatedTag = await Tag.update(
             { tagName: newTagName },
             { where: { id: tagId } }
         );
+        if (!updateTag) {
+            res.status(404);
+            res.send("You have tried to update a Tag that doesn't exist");
+        }
+        res.status(200);
         res.json(newTag);
     } catch (err) {
         res.status(500);
@@ -56,8 +66,8 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
     // delete on tag by its `id` value
-    const { tagId } = req.params;
     try {
+        const { tagId } = req.params;
         const deletedTag = await Tag.destroy({ where: { id: tagId } });
         res.status(200).json(deletedTag);
     } catch (err) {

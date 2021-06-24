@@ -129,9 +129,7 @@ router.delete("/:id", async (req, res) => {
         });
         if (deletedProduct) {
             res.status(200);
-            res.send(
-                `The following Prodcut has been deleted: \n ${deletedProduct}`
-            );
+            res.json(deletedProduct);
         }
         res.status(404);
         res.send("You tried to delete an invalid product");
