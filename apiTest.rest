@@ -1,0 +1,111 @@
+# all Products
+GET http://localhost:3001/api/products
+
+###
+# get product by id
+GET http://localhost:3001/api/products/1
+
+###
+# Create New Product 
+POST http://localhost:3001/api/products
+Content-Type: application/json
+
+{
+    "productName":"trackies",
+    "price":110,
+    "stock":10,
+    "catergoryId":1
+}
+###
+# Update existing product by id
+PUT http://localhost:3001/api/products/2
+Content-Type: application/json
+
+{
+    "id":1,
+    "productName":"Running Sneakers",
+    "price":120,
+    "stock":10,
+    "catergoryId":5
+}
+
+###
+# Delete Product by id
+
+DELETE http://localhost:3001/api/product/2
+
+
+
+# TAG ROUTES 
+
+###
+# get all tags
+GET http://localhost:3001/api/tags
+
+
+###
+# get tag by id 
+
+GET http://localhost:3001/api/tags/1
+
+###
+# create new tag
+
+POST http://localhost:3001/api/tags/
+Content-Type: application/json
+
+{
+    "tagName":"mauve"
+}
+###
+# update tag
+
+PUT http://localhost:3001/api/tags/1
+Content-Type: application/json
+
+{
+    "tagName":"newTag"
+}
+
+###
+# Delete Tag By id.
+
+DElETE http://;localhost:3001/api/tags/1
+
+# CATEGORY ROUTES
+
+###
+# get all categories
+
+GET http://localhost:3001/api/categories
+
+###
+# get Category based on id
+GET http://localhost:3001/api/categories/3
+
+### 
+# create a new Catgory 
+
+POST http://localhost:3001/api/categories/
+Content-Type: application/json
+
+{
+    "categoryName":"computer parts"
+}
+
+### 
+# update Category
+
+PUT http://localhost:3001/api/categories/6
+Content-Type: application/json
+
+{   "id":5,
+    "categoryName":"footwear"
+}
+
+###
+#delete Category
+
+DELETE  http://localhost:3001/api/categories/6
+
+
