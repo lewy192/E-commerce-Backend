@@ -17,17 +17,6 @@ Content-Type: application/json
     "catergoryId":1,
     "tagIds":1
 }
-###
-# Update existing product by id
-PUT http://localhost:3001/api/products/2
-Content-Type: application/json
-
-{
-    "productName":"Running Sneakers",
-    "price":120,
-    "stock":10,
-    "catergoryId":5
-}
 
 ###
 # Delete Product by id
